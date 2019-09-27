@@ -1,10 +1,12 @@
 <template>
   <div class="full_page_layout">
     <!-- 导航条 -->
-    <van-nav-bar :title="title" left-text="返回" left-arrow @click-left="toBack"
+    <van-nav-bar fixed :title="title" left-text="返回" left-arrow @click-left="toBack"
     />
     <!-- 内容 -->
-    <slot/>
+    <div style="padding-top:46px">
+      <slot/>
+    </div>
   </div>
 </template>
 <script>
@@ -25,6 +27,7 @@ export default {
     bottom: 0;
     width: 100%;
     z-index: 1000;
-    background-color: #ffffff
+    background-color: #ffffff;
+    overflow: scroll
   }
 </style>

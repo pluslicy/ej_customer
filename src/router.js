@@ -4,6 +4,7 @@ import Home from './views/home/index.vue'
 import Order from './views/order/index.vue'
 import My from './views/my/index.vue'
 import CategoryList from './views/home/CategoryList'
+import ConfirmOrder from './views/home/ConfirmOrder'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
       path: '/order',
       name: 'order',
       component: Order
+    },
+    {
+      path: '/confirmOrder',
+      name: 'confirmOrder',
+      component: ConfirmOrder
     },
     {
       path: '/my',
