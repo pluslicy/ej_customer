@@ -1,6 +1,21 @@
 <template>
   <div id="my">
-    我的
+    <van-nav-bar fixed :title="'我的'" />
+    <div class="content">
+      <!--  -->
+      <div class="photo">
+        <div class="photo_wrapper">
+          <img src="../../assets/images/home_23.png" alt="">
+        </div>
+      </div>
+      <!--  -->
+      <div class="line">
+        常用地址
+      </div>
+      <div class="line">
+        退出
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -9,5 +24,29 @@ export default {
 }
 </script>
 <style scoped>
+#my .content {
+  padding-top: 46px;
+}
+.photo {
+  padding-top: 2em;
+}
+.photo .photo_wrapper{
+  margin: 0 auto;
+  width: 10em;
+  height: 10em;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border:1px solid #eedded;
+  overflow:hidden;
+  padding: 1em;
 
+}
+.photo img {
+ width: 100%;
+}
+.line {
+  line-height: 4em;
+  border-bottom: 1px solid #ededed;
+  padding-left: 4em;
+}
 </style>

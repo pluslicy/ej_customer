@@ -5,13 +5,9 @@
         <!-- 左侧导航 -->
         <div class="left_nav">
           <van-sidebar v-model="activeKey">
-            <van-sidebar-item title="标签名称" />
-            <van-sidebar-item title="标签名称" />
-            <van-sidebar-item title="标签名称" />
-            <van-sidebar-item title="标签名称" />
-            <van-sidebar-item title="标签名称" />
-            <van-sidebar-item title="标签名称" />
-            <van-sidebar-item title="标签名称" />
+            <van-sidebar-item title="保洁" />
+            <van-sidebar-item title="家电维修" />
+            <van-sidebar-item title="月嫂" />
           </van-sidebar>
         </div>
         <!-- / 左侧导航 -->
