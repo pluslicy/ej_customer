@@ -5,15 +5,15 @@
     </div>
     <!-- 栏目 -->
     <ul class="categories">
-      <li v-for="i in 6" :key="i" @click="toCategoryListHandler">
+      <li v-for="i in sixCategoryList" :key="i.id" @click="toCategoryListHandler">
         <div><img src="../../assets/images/home_05.png" alt=""></div>
-        <div>洗护</div>
+        <div>{{i.name}}</div>
       </li>
     </ul>
     <!-- 推荐 -->
     <ul class="categories advs">
       <li v-for="i in 3" :key="i">
-        <div><img src="../../assets/images/home_19.png" alt=""></div>
+        <div><img width="50%" src="../../assets/images/home_19.png" alt=""></div>
         <div>衣物</div>
       </li>
     </ul>
@@ -21,8 +21,21 @@
   </div>
 </template>
 <script>
+import {mapState,mapActions,mapGetters} from 'vuex'
 export default {
+  created(){
+    this.findAllCategories();
+  },
+  computed:{
+    ...mapState("category",{
+      categories:"list"
+    }),
+    ...mapGetters("category",["sixCategoryList"])
+  },
   methods:{
+    ...mapActions("category",{
+      findAllCategories:"findAll"
+    }),
     toCategoryListHandler(){
       this.$router.push("/categoryList")
     }
@@ -46,12 +59,15 @@ export default {
 }
 .advs {
   box-sizing: border-box;
-  border-collapse: collapse
+  border-collapse: collapse;
+  border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed;
 }
 .advs > li {
   box-sizing: border-box;
-  border:  1px solid #ededed;
+  border-right:  1px solid #ededed;
   overflow: hidden;
+  height: 120px;
 }
 .advs > li img {
   width: 80%;
