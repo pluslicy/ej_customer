@@ -6,7 +6,11 @@ export default {
     message:""
   },
   getters:{
-   
+    ordersFilter(state){
+      return (status)=>{
+        return state.orders.filter(item=>item.status === status)
+      }
+    }
   },
   mutations:{
     resetOrders(state,orders){
@@ -24,8 +28,8 @@ export default {
       })
     },
     findOrdersByCustomerId({commit},customerId){
-      get("/order/queryBasic",{
-        params:{customerId}
+      get("/order/query",{
+        customerId
       })
       .then((result)=>{
         commit("resetOrders",result.data);

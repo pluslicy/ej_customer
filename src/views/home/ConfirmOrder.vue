@@ -74,6 +74,8 @@
 <script>
 import FullPageLayout from '../../components/FullPageLayout'
 import {mapState,mapGetters,mapActions} from 'vuex'
+import {Toast} from 'vant'
+
 export default {
   data(){
     return {
@@ -109,9 +111,10 @@ export default {
       // console.log(order);
       this.saveOrder(order)
       .then(()=>{
-        alert(this.message);
+        Toast.success(this.message);
+        this.$router.push("/order")
       });
-      this.$router.push("/order")
+      
     }
   }
 }

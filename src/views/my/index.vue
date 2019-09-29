@@ -7,7 +7,7 @@
         <div class="photo_wrapper">
           <img src="../../assets/images/home_23.png" alt="">
         </div>
-        <div>{{user}}</div>
+        <div style="text-align:center;line-height:3em">{{user.realname}}</div>
       </div>
       <!--  -->
       <div class="line">

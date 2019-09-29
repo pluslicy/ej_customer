@@ -19,15 +19,60 @@
             </li>
           </ul>
         </van-tab>
-        <van-tab title="待付款" name="b">内容 2</van-tab>
-        <van-tab title="待服务" name="c">内容 3</van-tab>
-        <van-tab title="待评价" name="d">内容 3</van-tab>
+        <van-tab title="未付款" name="b">
+          <ul>
+            <li class="order" v-for="o in ordersFilter('未付款')" :key="o.id">
+              <van-row>
+                <van-col :span="6">
+                  <img width="90%" src="../../assets/images/home_21.png" alt="">
+                </van-col>
+                <van-col :span="18">
+                  <p class="title">{{o.orderTime}}</p>
+                  <p class="price">￥{{o.total}}</p>
+                  <p class="status">{{o.status}}</p>
+                </van-col>
+              </van-row>
+            </li>
+          </ul>
+        </van-tab>
+        <van-tab title="未服务" name="c">
+           <ul>
+            <li class="order" v-for="o in ordersFilter('未服务')" :key="o.id">
+              <van-row>
+                <van-col :span="6">
+                  <img width="90%" src="../../assets/images/home_21.png" alt="">
+                </van-col>
+                <van-col :span="18">
+                  <p class="title">{{o.orderTime}}</p>
+                  <p class="price">￥{{o.total}}</p>
+                  <p class="status">{{o.status}}</p>
+                </van-col>
+              </van-row>
+            </li>
+          </ul>
+        </van-tab>
+        <van-tab title="未评价" name="d">
+          <ul>
+            <li class="order" v-for="o in ordersFilter('未评价')" :key="o.id">
+              <van-row>
+                <van-col :span="6">
+                  <img width="90%" src="../../assets/images/home_21.png" alt="">
+                </van-col>
+                <van-col :span="18">
+                  <p class="title">{{o.orderTime}}</p>
+                  <p class="price">￥{{o.total}}</p>
+                  <p class="status">{{o.status}}</p>
+                </van-col>
+              </van-row>
+            </li>
+          </ul>
+        </van-tab>
       </van-tabs>
     </div>
   </div>
 </template>
 <script>
-import {mapState,mapActions} from "vuex"
+import {mapState,mapActions,mapGetters} from "vuex"
 export default {
   data(){
     return {
@@ -35,13 +80,15 @@ export default {
     }
   },
   created(){
-    this.findAllOrders()
+    this.findOrdersByCustomerId(this.user.id)
   },
   computed:{
-    ...mapState("order",["orders"])
+    ...mapState("order",["orders"]),
+    ...mapState("app",["user"]),
+    ...mapGetters("order",["ordersFilter"])
   },
   methods:{
-    ...mapActions("order",["findAllOrders"])
+    ...mapActions("order",["findOrdersByCustomerId"])
   }
 }
 </script>
