@@ -5,15 +5,15 @@
       <van-tabs v-model="activeName">
         <van-tab title="全部订单" name="a">
           <ul>
-            <li class="order" v-for="i in 4" :key="i">
+            <li class="order" v-for="o in orders" :key="o.id">
               <van-row>
                 <van-col :span="6">
                   <img width="90%" src="../../assets/images/home_21.png" alt="">
                 </van-col>
                 <van-col :span="18">
-                  <p class="title">打扫房间</p>
-                  <p class="price">￥120</p>
-                  <p class="status">交易完成</p>
+                  <p class="title">{{o.orderTime}}</p>
+                  <p class="price">￥{{o.total}}</p>
+                  <p class="status">{{o.status}}</p>
                 </van-col>
               </van-row>
             </li>
@@ -27,17 +27,28 @@
   </div>
 </template>
 <script>
+import {mapState,mapActions} from "vuex"
 export default {
   data(){
     return {
       activeName:"a"
     }
+  },
+  created(){
+    this.findAllOrders()
+  },
+  computed:{
+    ...mapState("order",["orders"])
+  },
+  methods:{
+    ...mapActions("order",["findAllOrders"])
   }
 }
 </script>
 <style scoped>
 #order .content {
   padding-top: 46px;
+  padding-bottom: 60px;
 }
 .order {
   padding: .5em;

@@ -22,7 +22,7 @@
                 </p>
               </van-col>
               <van-col class="step">
-                <van-stepper :min="0" v-model="p.number" input-width="24px" button-size="24px" />
+                <van-stepper @change="stepChangerHandler(p)" :min="0" v-model="p.number" input-width="24px" button-size="24px" />
               </van-col>
             </van-row>
           </div>
@@ -32,7 +32,7 @@
         <div class="shopcar">
            <van-row >
               <van-col span="5">
-                总额 <span style="color:#ff700d;"><i>￥</i>80</span>
+                总额 <span style="color:#ff700d;"><i>￥</i>{{shopcar_total}}</span>
               </van-col>
               <van-col span="14"></van-col>
               <van-col span="5" @click="toConfirmOrderHandler">立即下单</van-col>
@@ -44,7 +44,7 @@
 </template>
 <script>
 import FullPageLayout from '../../components/FullPageLayout'
-import {mapState,mapActions,mapGetters} from 'vuex'
+import {mapState,mapActions,mapGetters,mapMutations} from 'vuex'
 export default {
   data(){
     return {
@@ -61,15 +61,19 @@ export default {
     // this.findProductsHandler(this.categories[index].id)
   },
   computed:{
+    ...mapState("app",["shopcar"]),
     ...mapState("category",["categories"]),
     ...mapState("product",["products"]),
-    ...mapGetters("product",["getProductsByCategoryId"])
+    ...mapGetters("product",["getProductsByCategoryId"]),
+    ...mapGetters("app",["shopcar_total"])
+    
   },
   components:{
     "briup-FullPageLayout":FullPageLayout
   },
   methods:{
     // ...mapActions("product",["findProductsByCategoryId"]),
+    ...mapMutations("app",["alterShopCar"]),
     // 回退
     backHandler(){
       this.$router.back();
@@ -80,6 +84,16 @@ export default {
     // 点击左侧栏目，根据栏目查找对应商品列表
     findProductsHandler(id){
       this.categoryId = id;
+    },
+    stepChangerHandler(p){
+      let line = {
+        productId:p.id,
+        productName:p.name,
+        price:p.price,
+        number:p.number
+      }
+      // 修改购物车
+      this.alterShopCar(line);
     }
   }
 }

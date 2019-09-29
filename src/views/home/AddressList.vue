@@ -3,48 +3,41 @@
     <briup-FullPageLayout title="地址列表" @back="backHandler">
       <van-address-list
         v-model="chosenAddressId"
-        :list="list"
+        :list="addresses"
         add-button-text="确认"
         @add="onAdd"
+        @select="selectAddressHandler"
         @edit="onEdit" />
-
     </briup-FullPageLayout>
   </div>  
 </template>
 <script>
 import FullPageLayout from '../../components/FullPageLayout'
+import {mapState,mapMutations} from 'vuex'
 export default {
   data() {
     return {
-      chosenAddressId: '1',
-      list: [
-        {
-          id: '1',
-          name: '张三',
-          tel: '13000000000',
-          address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室'
-        },
-        {
-          id: '2',
-          name: '李四',
-          tel: '1310000000',
-          address: '浙江省杭州市拱墅区莫干山路 50 号'
-        }
-      ]
+      chosenAddressId: 0
     }
   },
   components:{
     "briup-FullPageLayout":FullPageLayout
   },
+  computed:{
+    ...mapState("app",["addresses","currentAddress"])
+  },
   methods:{
+    ...mapMutations("app",["resetCurrentAddress"]),
     // 回退
     backHandler(){
       this.$router.back();
     },
-    onAdd() {
+    onAdd(id) {
       this.backHandler();
     },
-
+    selectAddressHandler(item){
+      this.resetCurrentAddress(item);
+    },
     onEdit(item, index) {
       alert('编辑地址:' + index);
     }

@@ -63,6 +63,18 @@ export function post_array(url,data){
     }
   })
 }
+export function post_array_dots(url,data){
+  return axios({
+    method:"post",
+    url,
+    data:qs.stringify(data,{allowDots: true}),
+    timeout:10000,
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    }
+  })
+}
 /**
  * 提交post请求 发送的数据为json字符串
 */
