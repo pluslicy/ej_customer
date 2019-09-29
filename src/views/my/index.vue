@@ -7,6 +7,7 @@
         <div class="photo_wrapper">
           <img src="../../assets/images/home_23.png" alt="">
         </div>
+        <div>{{user}}</div>
       </div>
       <!--  -->
       <div class="line">
@@ -19,8 +20,11 @@
   </div>
 </template>
 <script>
+import {mapState} from 'vuex';
 export default {
-  
+  computed:{
+    ...mapState("app",["user"])
+  }
 }
 </script>
 <style scoped>

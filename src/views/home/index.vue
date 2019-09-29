@@ -5,9 +5,9 @@
     </div>
     <!-- 栏目 -->
     <ul class="categories">
-      <li v-for="i in 6" :key="i" @click="toCategoryListHandler">
+      <li v-for="(c, index)  in getCategories(6)" :key="c.id" @click="toCategoryListHandler(index)">
         <div><img src="../../assets/images/home_05.png" alt=""></div>
-        <div>洗护</div>
+        <div>{{c.name}}</div>
       </li>
     </ul>
     <!-- 推荐 -->
@@ -21,10 +21,14 @@
   </div>
 </template>
 <script>
+import {mapGetters,mapActions} from 'vuex'
 export default {
+  computed:{
+    ...mapGetters("category",["getCategories"])
+  },
   methods:{
-    toCategoryListHandler(){
-      this.$router.push("/categoryList")
+    toCategoryListHandler(index){
+      this.$router.push("/categoryList/"+index)
     }
   }
 }
@@ -52,6 +56,7 @@ export default {
   box-sizing: border-box;
   border:  1px solid #ededed;
   overflow: hidden;
+  height: 130px;
 }
 .advs > li img {
   width: 80%;

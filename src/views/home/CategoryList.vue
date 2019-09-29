@@ -5,26 +5,24 @@
         <!-- 左侧导航 -->
         <div class="left_nav">
           <van-sidebar v-model="activeKey">
-            <van-sidebar-item title="保洁" />
-            <van-sidebar-item title="家电维修" />
-            <van-sidebar-item title="月嫂" />
+            <van-sidebar-item :title="c.name" v-for="c in categories" :key="c.id" @click="findProductsHandler(c.id)"/>
           </van-sidebar>
         </div>
         <!-- / 左侧导航 -->
         <!-- 右侧内容 -->
         <div class="products_container">
-          <div class="product" v-for="i in 10" :key="i">
+          <div class="product" v-for="p in getProductsByCategoryId(categoryId)" :key="p.id">
             <van-row >
               <van-col span="6"><img width="100%" src="../../assets/images/home_19.png" alt=""></van-col>
               <van-col span="12">
-                <p class="title">毛衣</p>
+                <p class="title">{{p.name}}</p>
                 <p class="desc">360°清洗，全面烘干，熨烫整形，人工去球</p>
                 <p class="price">
-                  <span>￥</span> 10
+                  <span>￥</span> {{p.price}}
                 </p>
               </van-col>
               <van-col class="step">
-                <van-stepper v-model="value" input-width="24px" button-size="24px" />
+                <van-stepper :min="0" v-model="p.number" input-width="24px" button-size="24px" />
               </van-col>
             </van-row>
           </div>
@@ -46,23 +44,42 @@
 </template>
 <script>
 import FullPageLayout from '../../components/FullPageLayout'
+import {mapState,mapActions,mapGetters} from 'vuex'
 export default {
   data(){
     return {
       activeKey:0,
-      value:1,
+      value:0,
+      categoryId:0
     }
+  },
+  created(){
+    let index = this.$route.params.index;;
+    this.activeKey = index;
+    this.categoryId = this.categories[index].id;
+    // 通过索引找到对应的栏目信息，然后再通过该栏目的id查找对应的商品
+    // this.findProductsHandler(this.categories[index].id)
+  },
+  computed:{
+    ...mapState("category",["categories"]),
+    ...mapState("product",["products"]),
+    ...mapGetters("product",["getProductsByCategoryId"])
   },
   components:{
     "briup-FullPageLayout":FullPageLayout
   },
   methods:{
+    // ...mapActions("product",["findProductsByCategoryId"]),
     // 回退
     backHandler(){
       this.$router.back();
     },
     toConfirmOrderHandler(){
       this.$router.push("/confirmOrder")
+    },
+    // 点击左侧栏目，根据栏目查找对应商品列表
+    findProductsHandler(id){
+      this.categoryId = id;
     }
   }
 }

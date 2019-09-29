@@ -17,7 +17,7 @@ export default new Router({
       component: Home
     },
     {
-      path: '/categoryList',
+      path: '/categoryList/:index',
       name: 'categoryList',
       component: CategoryList
     },

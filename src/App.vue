@@ -12,12 +12,28 @@
   </div>  
 </template>
 <script>
+import {mapActions} from 'vuex'
+
 export default {
   data(){
     return {
       active:"index"
     }
-  }
+  },
+  created(){
+    // 自动登录
+    this.login();
+    // 查询所有栏目信息
+    this.findOneLevelCategory();
+    // 查询所有的商品信息
+    this.findAllProducts();
+  },
+  methods:{
+    ...mapActions("category",["findOneLevelCategory"]),
+    ...mapActions("app",["login"]),
+    ...mapActions("product",["findAllProducts"])
+
+  },
 }
 </script>
 <style scoped>
